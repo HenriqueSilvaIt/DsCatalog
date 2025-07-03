@@ -1,12 +1,19 @@
 package com.hen.aula.entities;
 
 import com.fasterxml.jackson.annotation.JsonTypeId;
+import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.util.Objects;
 
+@Entity/*sempre importa com base na especificação do jakarta, se amanhã trocarmos a implementação trocarmos o hibernate por outra
+a aplicação vai continuar funcionando */
+@Table(name = "tb_category")
 public class Category {
 
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY) /*Configura o Id
+    para ser auto incrementado*/
     private Long id;
     private String name;
 
