@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonTypeId;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.time.Instant;
 import java.util.Objects;
 
 @Entity/*sempre importa com base na especificação do jakarta, se amanhã trocarmos a implementação trocarmos o hibernate por outra
@@ -16,6 +17,23 @@ public class Category {
     para ser auto incrementado*/
     private Long id;
     private String name;
+
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    /*quando vocÊ coloca TIMESTAMP WITHOUT TIME ZONE sem especificar
+    * qualquer timezone, vai ser sempre o horário UTC de londres
+    *  ai quando precisa converte no service para o horário
+    * local do cliente, o professor indica sempre dar preferencia
+    *  deixar without time zone sem especificar um fusuori
+    * Tem que criar o get do atributo abaix, esse atributo
+    * vai ser alterado somente quando você criar e ele n
+    * vai ser mais atualizado*/
+     private Instant createdAt; /*armazena qual o instant que  algum
+      atributo dessa classe foi criado pela primeira ve */
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updatedAt; /* armazena o instant em que algum
+    atributo dessa clas    foi atualziada */
 
     public  Category() {
 
@@ -39,6 +57,36 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /*Método quando salvar uma categoria
+    ele vai armazenar no createdAt (Atibuto)  o instant atual
+    e quando eu atualizar uma categoria ele armazena no updatedAt
+     */
+
+    /*PrePersisti é porque antes de persist antes de salvar no banco
+    vai realizar essa ação
+     */
+    @PrePersist /*Sempre que você der um save do jpa pela primeira vz
+     no banco de dados ele vai chamar o pre persisti e vai salvar o momento
+     que foi criado*/
+    public void prePersist () {
+        createdAt = Instant.now();
+    }
+
+    @PreUpdate /*Sempre que você atualizar
+     no banco de dados ele vai chamar o pre updated e vai atualizar o
+     atributo do updated AT*/
+    public void preUpdate() {
+        updatedAt = Instant.now();
     }
 
 
