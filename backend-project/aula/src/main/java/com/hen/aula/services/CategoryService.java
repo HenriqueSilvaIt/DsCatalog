@@ -3,6 +3,8 @@ package com.hen.aula.services;
 import com.hen.aula.CategoryDTO;
 import com.hen.aula.entities.Category;
 import com.hen.aula.repositories.CategoryRepository;
+import com.hen.aula.services.expections.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,9 +63,51 @@ public class CategoryService {
         desde que você faça uma programação certinho pra checar se é nulo
          */
         Optional<Category> obj = repository.findById(id);
-        Category entity = obj.get(); /* o método  get do optional
+        Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not " +
+                "found")); /* Se o category n existir lança exceção, o método  get do optional
         obttem a entdidade  que está dentro do optinal*/
 
         return new CategoryDTO(entity);
+    }
+
+    @Transactional
+    public CategoryDTO insert(CategoryDTO dto) {
+
+        Category entity = new Category();
+        entity.setName(dto.getName());
+
+       entity =  repository.save(entity); /*o save retorna uma referencia
+       para entidade salva por isso fazemos entity = recebe uma referencia
+       para entidade dele*/
+
+        /*retornando entidade convertidade para um category dto*/
+
+        return new CategoryDTO(entity);
+    }
+
+    @Transactional
+    public CategoryDTO update(Long id, CategoryDTO dto) {
+
+        try { /*Esse método pode gerar uma exceção se o Id N exist na hora de atualzia*/
+            Category entity = repository.getReferenceById(id); /*
+        O findById ele consulta o id no banco de dados e quando vocÊ manda salvar
+        você acessa o banco de dados 2 vezes
+        Para atualizar sem precisar ir no banco de dados duas vezes
+        vocÊ usa esse método getReferenceById que ele não vai no banco de dados
+        ele instancia um objeto provisório com o id e só quando vocÊ manda
+        salvar que aí sim ele vai no banco de dados */
+
+
+            /*Atualiza a entidade com o nome que vir no DTO pela requisição */
+            entity.setName(dto.getName());
+
+            /*salva no banco de dados*/
+
+            entity = repository.save(entity);
+
+            return new CategoryDTO(entity);
+        } catch (ResourceNotFoundException e) {
+                throw new ResourceNotFoundException("Id not found " + id);
+        }
     }
 }
