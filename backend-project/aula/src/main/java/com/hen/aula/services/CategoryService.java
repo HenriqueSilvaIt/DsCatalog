@@ -3,10 +3,13 @@ package com.hen.aula.services;
 import com.hen.aula.CategoryDTO;
 import com.hen.aula.entities.Category;
 import com.hen.aula.repositories.CategoryRepository;
+import com.hen.aula.services.expections.DatabaseException;
 import com.hen.aula.services.expections.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -110,4 +113,24 @@ public class CategoryService {
                 throw new ResourceNotFoundException("Id not found " + id);
         }
     }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    /*Essa exceçã DataIntegrityViolationException é na camada do banco de dado, o spring n consegue capturar essa
+    execeção corretamente se tiver o Transaction, mas você pode colocar o transaction desde de que tenha o argumento Propagation.Supports( se você executar
+    esse método isoladamente ele n coloca transação ele executa só, porém se esse método tiver dentro de outro ele entra na transação ai não funciona ai tem que tirar o transactio*/
+    public void delete(Long id) {
+
+            if (!repository.existsById(id)) { /*Se o Id não existir lança exceção abaixo*/
+                throw new ResourceNotFoundException("Recurso não encontrado");
+            }
+        try {
+            repository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+                /*Essa exceção é integridade referencial se eu tentar deletar um objeto
+    	que é um atributo de outro objeto existente da falha de integridade referencial*/
+            throw new DatabaseException("Falha de integridade referencial");/*Data
+            base exception é nossa execeção personalizada que criamos dentro do pacote
+            exception do services*/
+        }
+        }
 }

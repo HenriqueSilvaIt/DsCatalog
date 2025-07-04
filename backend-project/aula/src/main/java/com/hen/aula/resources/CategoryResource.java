@@ -83,4 +83,12 @@ public class CategoryResource {
         return ResponseEntity.ok().body(dto);
 
     }
+
+    @DeleteMapping(value =  "/{id}") /*No padrão REST utilizamos o delete do HTTP*/
+    public ResponseEntity<Void> delete (@PathVariable Long id) {/*Delete
+    não tem corpo na resposta por isso podemos usar void */
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+        /*204 quer dizer que deu certo mas no corpo da resposta está vaizo*/
+    }
 }
