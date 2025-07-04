@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service /*Essa anotation registra essa classe  como um componente
 que vai particiar do sistema de depência automatizado do spring, se for
@@ -47,5 +48,22 @@ public class CategoryService {
         return listDto; /* o repository já tem o método
         find all*/
 
+    }
+
+    @Transactional
+    public CategoryDTO findById(Long id) {
+        /*Optional é uma abordagem que veio desde do Java 8
+        para evitar você trabalhar com valor nulo, então esse variavel
+        que criamos nunca vai ser um objeto nulo, ela vai ser objeto Optional
+        e dentro desse Optional pode ter ou não um objeto Category por exemplo
+        dentro dele, tem gente que defende
+        utilizar esse Optional tem gente que fala que não precisa
+        desde que você faça uma programação certinho pra checar se é nulo
+         */
+        Optional<Category> obj = repository.findById(id);
+        Category entity = obj.get(); /* o método  get do optional
+        obttem a entdidade  que está dentro do optinal*/
+
+        return new CategoryDTO(entity);
     }
 }
