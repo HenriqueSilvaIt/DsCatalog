@@ -1,5 +1,6 @@
 package com.hen.aula.resources;
 
+import com.hen.aula.CategoryDTO;
 import com.hen.aula.entities.Category;
 import com.hen.aula.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class CategoryResource {
     requisição
      */
     @GetMapping
-    public ResponseEntity <List<Category>> findAll() {
+    public ResponseEntity <List<CategoryDTO>> findAll() {
 
 
 
@@ -37,7 +38,7 @@ public class CategoryResource {
         list.add(new Category(1L, "Books")); // L representa que o número vai ser long
         list.add(new Category(2L, "Eletronics"));
  */
-        List<Category> list = service.findAll();
+        List<CategoryDTO> list = service.findAll();
         return ResponseEntity.ok().body(list);
         /* .body  é para definir o corpo da resposta você pode colocar
         * o list dentro do ok, porque ele tem uma sobrecarga dentro do ok
