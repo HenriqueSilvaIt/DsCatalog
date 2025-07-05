@@ -5,6 +5,7 @@ import com.hen.aula.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,20 +27,10 @@ public class ProductResource {
     requisição
      */
     @GetMapping
-    public ResponseEntity <Page<ProductDTO>> findAll(
-            @RequestParam(value = "page", defaultValue = "0") Integer page, /*default value se n informar um valor ele pega esse valor como padrão*/
-            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
-            @RequestParam(value = "direction", defaultValue = "DESC") String direction,
-            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy) {
-        
-            PageRequest pageRequest = PageRequest.of(
-                    page,
-                    linesPerPage,
-                    Sort.Direction.valueOf( direction),
-                    orderBy
-       ); /*convert a string da requisiçao em enumerado directio*/
+    public ResponseEntity <Page<ProductDTO>> findAll(Pageable pageable) {
 
-        Page<ProductDTO> list = service.findAll(pageRequest);
+
+        Page<ProductDTO> list = service.findAll(pageable);
 
         return ResponseEntity.ok().body(list);
         /* .body  é para definir o corpo da resposta você pode colocar

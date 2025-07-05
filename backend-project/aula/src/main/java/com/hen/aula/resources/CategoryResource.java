@@ -24,20 +24,9 @@ public class CategoryResource {
     requisição
      */
     @GetMapping
-    public ResponseEntity <Page<CategoryDTO>> findAll(
-            @RequestParam(value = "page", defaultValue = "0") Integer page, /*default value se n informar um valor ele pega esse valor como padrão*/
-            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
-            @RequestParam(value = "direction", defaultValue = "DESC") String direction,
-            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy) {
-        
-            PageRequest pageRequest = PageRequest.of(
-                    page,
-                    linesPerPage,
-                    Sort.Direction.valueOf( direction),
-                    orderBy
-       ); /*convert a string da requisiçao em enumerado directio*/
+    public ResponseEntity <Page<CategoryDTO>> findAll(Pageable pageable) {
 
-        Page<CategoryDTO> list = service.findAll(pageRequest);
+        Page<CategoryDTO> list = service.findAll(pageable);
 
         return ResponseEntity.ok().body(list);
         /* .body  é para definir o corpo da resposta você pode colocar

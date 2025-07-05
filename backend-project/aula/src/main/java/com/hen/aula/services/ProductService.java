@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,10 +31,10 @@ public class ProductService {
     private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(PageRequest pageRequest) {
+    public Page<ProductDTO> findAll(Pageable pageable) {
 
         // Busca lista de categoria no banco de dados e salva nessa list
-        Page<Product> list = repository.findAll(pageRequest);
+        Page<Product> list = repository.findAll(pageable);
 
         /*        List<ProductDTO> listDto  = .
         Stream é um recurso do java 8 em diante
