@@ -1,8 +1,8 @@
 package com.hen.aula.services;
 
-import com.hen.aula.dto.CategoryDTO;
-import com.hen.aula.entities.Category;
-import com.hen.aula.repositories.CategoryRepository;
+import com.hen.aula.dto.ProductDTO;
+import com.hen.aula.entities.Product;
+import com.hen.aula.repositories.ProductRepository;
 import com.hen.aula.services.expections.DatabaseException;
 import com.hen.aula.services.expections.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +18,18 @@ import java.util.Optional;
 @Service /*Essa anotation registra essa classe  como um componente
 que vai particiar do sistema de depência automatizado do spring, se for
 um component genérico que não tem um significado especifico pode colocar Component*/
-public class CategoryService {
+public class ProductService {
 
     @Autowired /* Injeção de dependencia automatica*/
-    private CategoryRepository repository;
+    private ProductRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<CategoryDTO> findAll(PageRequest pageRequest) {
+    public Page<ProductDTO> findAll(PageRequest pageRequest) {
 
         // Busca lista de categoria no banco de dados e salva nessa list
-        Page<Category> list = repository.findAll(pageRequest);
+        Page<Product> list = repository.findAll(pageRequest);
 
-        /*        List<CategoryDTO> listDto  = .
+        /*        List<ProductDTO> listDto  = .
         Stream é um recurso do java 8 em diante
         que permit vocÊ trabalhar com funções de alta ordem
          com funções inclusiv com expressões lambda que é um recurso
@@ -37,52 +37,52 @@ public class CategoryService {
 
           o map aplica uma função com cada item da sua lista;
           ele transforma um elemento x que era de list para um novo elemento
-          dto de categoryDTo para cada item da list de category
+          dto de ProductDTo para cada item da list de Product
           ai tem que usar o collect para transformar a stream em lista denovo */
 
-        return list.map(x -> new CategoryDTO(x)); /* o repository já tem o método
+        return list.map(x -> new ProductDTO(x)); /* o repository já tem o método
         find all*/
 
     }
 
     @Transactional
-    public CategoryDTO findById(Long id) {
+    public ProductDTO findById(Long id) {
         /*Optional é uma abordagem que veio desde do Java 8
         para evitar você trabalhar com valor nulo, então esse variavel
         que criamos nunca vai ser um objeto nulo, ela vai ser objeto Optional
-        e dentro desse Optional pode ter ou não um objeto Category por exemplo
+        e dentro desse Optional pode ter ou não um objeto Product por exemplo
         dentro dele, tem gente que defende
         utilizar esse Optional tem gente que fala que não precisa
         desde que você faça uma programação certinho pra checar se é nulo
          */
-        Optional<Category> obj = repository.findById(id);
-        Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not " +
-                "found")); /* Se o category n existir lança exceção, o método  get do optional
+        Optional<Product> obj = repository.findById(id);
+        Product entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not " +
+                "found")); /* Se o Product n existir lança exceção, o método  get do optional
         obttem a entdidade  que está dentro do optinal*/
 
-        return new CategoryDTO(entity);
+        return new ProductDTO(entity, entity.getCategories());
     }
 
     @Transactional
-    public CategoryDTO insert(CategoryDTO dto) {
+    public ProductDTO insert(ProductDTO dto) {
 
-        Category entity = new Category();
-        entity.setName(dto.getName());
+        Product entity = new Product();
+       /* entity.setName(dto.getName());*/
 
        entity =  repository.save(entity); /*o save retorna uma referencia
        para entidade salva por isso fazemos entity = recebe uma referencia
        para entidade dele*/
 
-        /*retornando entidade convertidade para um category dto*/
+        /*retornando entidade convertidade para um Product dto*/
 
-        return new CategoryDTO(entity);
+        return new ProductDTO(entity);
     }
 
     @Transactional
-    public CategoryDTO update(Long id, CategoryDTO dto) {
+    public ProductDTO update(Long id, ProductDTO dto) {
 
         try { /*Esse método pode gerar uma exceção se o Id N exist na hora de atualzia*/
-            Category entity = repository.getReferenceById(id); /*
+            Product entity = repository.getReferenceById(id); /*
         O findById ele consulta o id no banco de dados e quando vocÊ manda salvar
         você acessa o banco de dados 2 vezes
         Para atualizar sem precisar ir no banco de dados duas vezes
@@ -92,13 +92,13 @@ public class CategoryService {
 
 
             /*Atualiza a entidade com o nome que vir no DTO pela requisição */
-            entity.setName(dto.getName());
+            //entity.setName(dto.getName());
 
             /*salva no banco de dados*/
 
             entity = repository.save(entity);
 
-            return new CategoryDTO(entity);
+            return new ProductDTO(entity);
         } catch (ResourceNotFoundException e) {
                 throw new ResourceNotFoundException("Id not found " + id);
         }

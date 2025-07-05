@@ -1,4 +1,4 @@
-package com.hen.aula;
+package com.hen.aula.dto;
 
 import com.hen.aula.entities.Category;
 

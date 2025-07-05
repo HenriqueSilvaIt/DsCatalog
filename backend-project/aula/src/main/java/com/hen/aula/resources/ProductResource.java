@@ -1,9 +1,11 @@
 package com.hen.aula.resources;
 
-import com.hen.aula.dto.CategoryDTO;
-import com.hen.aula.services.CategoryService;
+import com.hen.aula.dto.ProductDTO;
+import com.hen.aula.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -12,19 +14,19 @@ import java.net.URI;
 
 @RestController /*Transforma a classe em um recurso Rest, esse anotation
  efetua um pré processamento ao compila essa clase*/
-@RequestMapping(value = "/categories") /*Aqui você passa a rota*/
-public class CategoryResource {
+@RequestMapping(value = "/products") /*Aqui você passa a rota*/
+public class ProductResource {
 
 
     @Autowired
-    private CategoryService service;
+    private ProductService service;
 
 
     /*Response Entity é um objeto do spring que vai encapsular o resultado da
     requisição
      */
     @GetMapping
-    public ResponseEntity <Page<CategoryDTO>> findAll(
+    public ResponseEntity <Page<ProductDTO>> findAll(
             @RequestParam(value = "page", defaultValue = "0") Integer page, /*default value se n informar um valor ele pega esse valor como padrão*/
             @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
             @RequestParam(value = "direction", defaultValue = "DESC") String direction,
@@ -37,7 +39,7 @@ public class CategoryResource {
                     orderBy
        ); /*convert a string da requisiçao em enumerado directio*/
 
-        Page<CategoryDTO> list = service.findAll(pageRequest);
+        Page<ProductDTO> list = service.findAll(pageRequest);
 
         return ResponseEntity.ok().body(list);
         /* .body  é para definir o corpo da resposta você pode colocar
@@ -48,14 +50,14 @@ public class CategoryResource {
 
     @GetMapping(value = "/{id}")
     /*path variable é o parâmetro que você vai passa na rota*/
-    public ResponseEntity<CategoryDTO> findByid(@PathVariable Long id) {
-        CategoryDTO dto  = service.findById(id);
+    public ResponseEntity<ProductDTO> findByid(@PathVariable Long id) {
+        ProductDTO dto  = service.findById(id);
 
         return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto) {
+    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO dto) {
 
         dto = service.insert(dto);
 
@@ -74,9 +76,9 @@ public class CategoryResource {
 
     @PutMapping(value = "/{id}")/*Put é um método não idepotente,
     salvar recurso de forma idempotente (se existir o produto do mesmo id, ele salva  o mesmo produto e não salva outro)*/
-    public ResponseEntity<CategoryDTO> update (
+    public ResponseEntity<ProductDTO> update (
             @PathVariable Long id,
-            @RequestBody CategoryDTO dto) {
+            @RequestBody ProductDTO dto) {
 
         dto = service.update(id, dto);
 
