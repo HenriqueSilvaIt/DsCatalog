@@ -8,6 +8,8 @@ import com.hen.aula.services.expections.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,19 +27,10 @@ public class CategoryService {
     private CategoryRepository repository;
 
     @Transactional(readOnly = true)
-    public List<CategoryDTO> findAll() {
+    public Page<CategoryDTO> findAll(PageRequest pageRequest) {
 
         // Busca lista de categoria no banco de dados e salva nessa list
-        List<Category> list = repository.findAll();
-
-        List<CategoryDTO> listDto = new ArrayList<>();
-
-        /*Para cada elemento da lista de categoria, para cada item da lista
-        eu crio um CategoryDTO  e passo todos eles dentro da listDto
-        que ai eu tenho todos elementos da entidade dentro da lista de DTO*/
-        for (Category cat : list) {
-            listDto.add(new CategoryDTO(cat));
-        }
+        Page<Category> list = repository.findAll(pageRequest);
 
         /*        List<CategoryDTO> listDto  = .
         Stream é um recurso do java 8 em diante
@@ -50,7 +43,7 @@ public class CategoryService {
           dto de categoryDTo para cada item da list de category
           ai tem que usar o collect para transformar a stream em lista denovo */
 
-        return listDto; /* o repository já tem o método
+        return list.map(x -> new CategoryDTO(x)); /* o repository já tem o método
         find all*/
 
     }
