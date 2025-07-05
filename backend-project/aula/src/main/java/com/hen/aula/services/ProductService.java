@@ -1,7 +1,10 @@
 package com.hen.aula.services;
 
+import com.hen.aula.dto.CategoryDTO;
 import com.hen.aula.dto.ProductDTO;
+import com.hen.aula.entities.Category;
 import com.hen.aula.entities.Product;
+import com.hen.aula.repositories.CategoryRepository;
 import com.hen.aula.repositories.ProductRepository;
 import com.hen.aula.services.expections.DatabaseException;
 import com.hen.aula.services.expections.ResourceNotFoundException;
@@ -22,6 +25,9 @@ public class ProductService {
 
     @Autowired /* Injeção de dependencia automatica*/
     private ProductRepository repository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
     public Page<ProductDTO> findAll(PageRequest pageRequest) {
@@ -68,6 +74,7 @@ public class ProductService {
 
         Product entity = new Product();
        /* entity.setName(dto.getName());*/
+        copyDtotoEntity(dto, entity);
 
        entity =  repository.save(entity); /*o save retorna uma referencia
        para entidade salva por isso fazemos entity = recebe uma referencia
@@ -94,6 +101,7 @@ public class ProductService {
             /*Atualiza a entidade com o nome que vir no DTO pela requisição */
             //entity.setName(dto.getName());
 
+            copyDtotoEntity(dto, entity);
             /*salva no banco de dados*/
 
             entity = repository.save(entity);
@@ -123,4 +131,27 @@ public class ProductService {
             exception do services*/
         }
         }
+
+        public void copyDtotoEntity(ProductDTO dto, Product entity) {
+            entity.setName(dto.getName());
+            /* o id n entra porque a gente não coloca ele na hora de atualizar ou inserir*/
+            entity.setDescription(dto.getDescription());
+            entity.setDate(dto.getDate());
+            entity.setPrice(dto.getPrice());
+            entity.setImgUrl(dto.getImgUrl());
+
+            entity.getCategories().clear(); /*limpa a lista de categoria*/
+            for (CategoryDTO catDto: dto.getCategories()) {
+                /*getReferenceByid instancia uma entidade sem precisa acessar
+                *  o banco só acessa o banco quando salv*/
+
+                Category category = categoryRepository.getReferenceById(catDto.getId());
+                /*eu acesso a lista de categoria do produto e faço ess for para cada item da lista de
+                * categoria associada ao produto e  pego o id  da categoria e instancio uma nova categoria
+                *  com esse id sem acessar o banco de dados ainda (por conta do getReference by id */
+
+                entity.getCategories().add(category);
+
+            }
+    }
 }
