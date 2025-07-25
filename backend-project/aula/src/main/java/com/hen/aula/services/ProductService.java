@@ -31,7 +31,7 @@ public class ProductService {
     private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(Pageable pageable) {
+    public Page<ProductDTO> findAllPaged(Pageable pageable) {
 
         // Busca lista de categoria no banco de dados e salva nessa list
         Page<Product> list = repository.findAll(pageable);

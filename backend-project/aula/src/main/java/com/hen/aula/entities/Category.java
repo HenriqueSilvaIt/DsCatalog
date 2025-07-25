@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity/*sempre importa com base na especificação do jakarta, se amanhã trocarmos a implementação trocarmos o hibernate por outra
 a aplicação vai continuar funcionando */
@@ -30,6 +32,17 @@ public class Category {
     * vai ser mais atualizado*/
      private Instant createdAt; /*armazena qual o instant que  algum
       atributo dessa classe foi criado pela primeira ve */
+
+
+        /*Lista de produto associado a categori*/
+        @ManyToMany(mappedBy = "categories") /*mappedby
+        vai fazer o mapeamento do outro lado com base no que já está feito
+        do outro, tem que coloca o mesmo nome do atributo dessa classe
+        na classe associada
+
+        COM ESSa associação eu vou conseguir acessar as categorias e dar um
+        getProducts para pegar os produtos associados a essa categori*/
+        private Set<Product> products = new HashSet<>();
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant updatedAt; /* armazena o instant em que algum
@@ -73,7 +86,7 @@ public class Category {
      */
 
     /*PrePersisti é porque antes de persist antes de salvar no banco
-    vai realizar essa ação
+    vairealizar essa ação
      */
     @PrePersist /*Sempre que você der um save do jpa pela primeira vz
      no banco de dados ele vai chamar o pre persisti e vai salvar o momento
@@ -89,7 +102,13 @@ public class Category {
         updatedAt = Instant.now();
     }
 
+    public Set<Product> getProducts() {
+        return products;
+    }
 
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
     /*Temos 2 métodos de comparação, porque o Hashcode é bem rápido
     * se você precisar varrer uma lista comparando ele é rápido
     * mas se vocÊ encontrar algum código igual que o hashcode gerou( é dificil

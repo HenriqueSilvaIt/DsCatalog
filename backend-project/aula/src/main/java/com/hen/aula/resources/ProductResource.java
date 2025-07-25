@@ -30,7 +30,7 @@ public class ProductResource {
     public ResponseEntity <Page<ProductDTO>> findAll(Pageable pageable) {
 
 
-        Page<ProductDTO> list = service.findAll(pageable);
+        Page<ProductDTO> list = service.findAllPaged(pageable);
 
         return ResponseEntity.ok().body(list);
         /* .body  é para definir o corpo da resposta você pode colocar
