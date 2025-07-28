@@ -2,6 +2,10 @@ package com.hen.aula.dto;
 
 import com.hen.aula.entities.Category;
 import com.hen.aula.entities.Product;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -11,10 +15,16 @@ import java.util.Set;
 public class ProductDTO {
 
     private Long id;
+
+    @Size(min = 5, max = 60, message = "Deve ter entre 5 e 60 caracteres")
+    @NotBlank(message = "Campo requirido")
     private String name;
+    @NotBlank(message = "Campo requirido")
     private String description;
+    @Positive(message = "Preço deve ser positivo")
     private Double price;
     private String imgUrl;
+    @PastOrPresent(message = "A data do produto não pode ser futura")
     private Instant date;
 
     private List<CategoryDTO> categories = new ArrayList<>();
@@ -43,7 +53,10 @@ public class ProductDTO {
 
 
 
-    /*Sobrecarga mesmo construtor com outros argumento*/
+    /*Sobrecarga mesmo construtor com outros argumento
+    * Caso vocÊ queira carregar o produtos com as categorias associadas
+    * ao produto você usa esse construtor que tem 2 argumento no service
+    * se você quiser carregar só os produto você usa o construtor acim*/
     public ProductDTO(Product entity, Set<Category> categories) {
         this(entity); /*chama o construtor que tem só  a entidade produto
         e todos os atributos dele*/
