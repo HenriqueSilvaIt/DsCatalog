@@ -4,13 +4,17 @@ import com.hen.aula.dto.RoleDTO;
 import jakarta.persistence.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "tb_user")
-public class User {
+public class User implements UserDetails {
 
 
     @Id
@@ -68,8 +72,60 @@ public class User {
         this.email = email;
     }
 
+
+
     public String getPassword() {
         return password;
+    }
+
+    /*método para adicionar perfis no usuário*/
+    public void addRoles(Role role) {
+            roles.add(role);
+
+    }
+    /*Método para avaliar se o usuário possui
+     *    algum dos roles que eu informa como string*/
+    public boolean hasRole() {
+        for(Role role: roles) {
+            if(role.getAuthority().equals(role.getId())) {
+                return true;    /*testa se a cada role da lista de role é igual
+                 *  o role name que eu informar*/
+            }
+            }
+        return false;
+        }
+
+
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {

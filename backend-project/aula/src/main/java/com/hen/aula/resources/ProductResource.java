@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,6 +28,7 @@ public class ProductResource {
     /*Response Entity é um objeto do spring que vai encapsular o resultado da
     requisição
      */
+
     @GetMapping
     public ResponseEntity <Page<ProductDTO>> findAll(Pageable pageable) {
 

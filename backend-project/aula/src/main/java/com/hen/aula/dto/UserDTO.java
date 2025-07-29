@@ -2,6 +2,7 @@ package com.hen.aula.dto;
 
 import com.hen.aula.entities.Role;
 import com.hen.aula.entities.User;
+import com.hen.aula.services.validation.UserInsertValid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

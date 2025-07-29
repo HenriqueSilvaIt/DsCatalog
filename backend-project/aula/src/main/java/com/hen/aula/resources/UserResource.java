@@ -2,6 +2,7 @@ package com.hen.aula.resources;
 
 import com.hen.aula.dto.UserDTO;
 import com.hen.aula.dto.UserInsertDTO;
+import com.hen.aula.dto.UserUpdateDTO;
 import com.hen.aula.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,11 +76,16 @@ public class UserResource {
     public ResponseEntity<UserDTO> update (
             @PathVariable Long id,
             @Valid
-            @RequestBody UserDTO dto) {
+            @RequestBody UserUpdateDTO dto) {
 
-        dto = service.update(id, dto);
+        UserDTO newDto = service.update(id, dto);/*como o
+        service apesar de receber como argunto UserUpdatetDTO
+        ele retorna um UserDTO, etão nós instanciamos
+        um UserDTO recebendo as informações do UserUpdatetDTO que além de
+        ter todas informações do usuário  também
+         tem  senha criptografada*/
 
-        return ResponseEntity.ok().body(dto);
+        return ResponseEntity.ok().body(newDto);
 
     }
 

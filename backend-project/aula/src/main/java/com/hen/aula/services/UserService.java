@@ -1,12 +1,10 @@
 package com.hen.aula.services;
 
-import com.hen.aula.dto.CategoryDTO;
-import com.hen.aula.dto.RoleDTO;
-import com.hen.aula.dto.UserDTO;
-import com.hen.aula.dto.UserInsertDTO;
+import com.hen.aula.dto.*;
 import com.hen.aula.entities.Category;
 import com.hen.aula.entities.Role;
 import com.hen.aula.entities.User;
+import com.hen.aula.projections.UserDetailsProjection;
 import com.hen.aula.repositories.CategoryRepository;
 import com.hen.aula.repositories.RoleRepository;
 import com.hen.aula.repositories.UserRepository;
@@ -16,17 +14,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service /*Essa anotation registra essa classe  como um componente
 que vai particiar do sistema de depência automatizado do spring, se for
 um component genérico que não tem um significado especifico pode colocar Component*/
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired /* Injeção de dependencia automatica*/
     private UserRepository repository;
@@ -105,7 +107,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO dto) {
+    public UserDTO update(Long id, UserUpdateDTO dto) {
 
         try { /*Esse método pode gerar uma exceção se o Id N exist na hora de atualzia*/
             User entity = repository.getReferenceById(id); /*
@@ -179,5 +181,52 @@ public class UserService {
                  usuário eu do clear lá em cima para limpar a lista*/
 
             }
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+       /*
+         User user = repository.findByEmail(username); aqui o reposítory não vai trazer a lista de roles (perfs
+        associado ao usuário porque o relaciomaneto entre User e Role é
+        muitos para muitos, dessa forma o carregamento é lazy, ele não trás
+        direto o objeto associado como no relacionamento que tem
+         uma classe para um associada qu é EAGER
+
+        Não podemos ir na classe User e colcoar @ManyToMany(fetch = FetchType.EAGER)
+        porque não é uma boa prática trazer todos objetos associados em um
+        relacionamento muitos para muitos
+
+        Para resolver isso, vamos criar uma  consulta customizada no SQL raiz
+        que já vai trazer os roles associados ao usuário
+         */
+
+        List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
+        if (result.size() == 0) /*se n tiver
+        nada na lista, quer dizer que n encontrou esse usuário  passado como argumento
+        na lista*/ {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        User user = new User();
+        user.setEmail(username);
+        user.setPassword(result.get(0).getPassword())/*
+        result acessa o resultado da lista
+        get(0), acessa o primeiro elemento da lista
+        getPassword pega a senha desse primeiro elemento*/;
+
+        /*vamos adicionar a lista de roles a objeto desse usuário*/
+
+        for (UserDetailsProjection projection: result) {
+
+            user.addRoles(new Role(projection.getRoleId(), projection.getAuthority()));
+            /*Para cada elemento do tipo UserDetailsProjection que tiver
+             * na lista result, eu vou adicionar esse perfil ao meu usuário
+             * com o método addRole que criei nele, dando new Role e pegando o id e o nome do perfil
+             *          pela projection*/
+        }
+
+        return user;
     }
 }
