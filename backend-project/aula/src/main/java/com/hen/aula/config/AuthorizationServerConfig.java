@@ -81,7 +81,7 @@ public class AuthorizationServerConfig {
 	public SecurityFilterChain asSecurityFilterChain(HttpSecurity http) throws Exception {
 
 		//Habilitar o autorization
-		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http); /*
+		http.securityMatcher("/oauth2/**", "/.well-known/**").with(OAuth2AuthorizationServerConfigurer.authorizationServer(), Customizer.withDefaults()); 	/*
 		Estamos configurando o authorization server (do oauth2), aplicando o objeto padrão
 		 do Spring security (estamos configurando o authorization server para funcionar com o spring
 		 security)*/

@@ -31,6 +31,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+
 @ExtendWith(SpringExtension.class)
 public class ProductServiceTests { /*Simula
 o comportamento do ProductSERVICE utilzando o repository
@@ -71,19 +72,19 @@ para obter o resultado*/
         productDTO = Factory.createProductDTO();
         page = new  PageImpl<>(List.of(product));
 
-        Mockito.when(repository.findAll((Pageable)ArgumentMatchers.any())).thenReturn(page);
+        when(repository.findAll((Pageable)ArgumentMatchers.any())).thenReturn(page);
 
-        Mockito.when(repository.getReferenceById(existingId)).thenReturn(product);
-        Mockito.when(repository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
+        when(repository.getReferenceById(existingId)).thenReturn(product);
+        when(repository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
 
-        Mockito.when(categoryRepository.getReferenceById(existingId)).thenReturn(category);
-        Mockito.when(categoryRepository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
+        when(categoryRepository.getReferenceById(existingId)).thenReturn(category);
+        when(categoryRepository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
 
-        Mockito.when(repository.save(ArgumentMatchers.any())).thenReturn(product);
+        when(repository.save(ArgumentMatchers.any())).thenReturn(product);
 
-        Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(product));
+        when(repository.findById(existingId)).thenReturn(Optional.of(product));
 
-        Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
+        when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
 
         when(repository.existsById(existingId)).thenReturn(true);
         /*Mockito.times(1) você coloca quantas vezes eses método foi chamado
