@@ -4,6 +4,7 @@ package com.hen.aula.resources;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hen.aula.dto.ProductDTO;
 import com.hen.aula.tests.Factory;
+import com.hen.aula.tests.TokenUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,13 @@ public class ProductResourcesIntegration {
 
     @Autowired
     private ObjectMapper objectMapper;
+    private TokenUtil tokenUtil;
 
     private Long existingId;
     private Long nonExistingId;
     private Long countTotalProducts;
+
+    private String username, password, bearerToken;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -41,6 +45,11 @@ public class ProductResourcesIntegration {
         nonExistingId = 1000L;
         countTotalProducts = 25L; /*
         Quantidade de produto no si*/
+
+        username = "maria@gmail.com";
+        password = "123456";
+
+        bearerToken = tokenUtil.obtainAccessToken(mockMvc, username, password);
     }
 
     @Test
@@ -89,6 +98,7 @@ public class ProductResourcesIntegration {
 
         ResultActions result =
                 mockMvc.perform(put("/products/{id}", existingId)
+                        .header("Authorization", "Bearer " + bearerToken)
                         .content(jsonBody)/*aqui é passado
                                  o corpo da requisição que o objeto
                                  productDTO com strin*/
@@ -125,6 +135,7 @@ public class ProductResourcesIntegration {
 
         ResultActions result =
                 mockMvc.perform(put("/products/{id}", nonExistingId)
+                        .header("Authorization", "Bearer " + bearerToken)
                         .content(jsonBody)/*aqui é passado
                                  o corpo da requisição que o objeto
                                  productDTO com strin*/

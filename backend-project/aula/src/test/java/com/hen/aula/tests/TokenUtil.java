@@ -1,4 +1,5 @@
 package com.hen.aula.tests;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -22,11 +23,14 @@ public class TokenUtil {
     @Value("${security.client-secret}")
     private String clientSecret;
 
+
     private static String encodeBase64(String input) {
         return Base64.getEncoder().encodeToString(input.getBytes());
     }
 
     public String obtainAccessToken(MockMvc mockMvc, String username, String password) throws Exception {
+
+
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "password");
@@ -35,11 +39,11 @@ public class TokenUtil {
         params.add("password", password);
 
         ResultActions result = mockMvc
-                .perform(post("/oauth2/token")
-                        .params(params)
-                        .header("Authorization", "Basic " + encodeBase64(clientId+":"+clientSecret))
 
-                        .accept("application/json;charset=UTF-8"))
+                .perform(post("/oauth2/token")
+
+                        .params(params)
+                        .header("Authorization", "Basic " + encodeBase64(clientId+":"+clientSecret)).accept("application/json;charset=UTF-8"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"));
 
