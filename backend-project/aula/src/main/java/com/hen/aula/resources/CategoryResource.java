@@ -5,6 +5,7 @@ import com.hen.aula.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -43,6 +44,7 @@ public class CategoryResource {
         return ResponseEntity.ok().body(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @PostMapping
     public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto) {
 
@@ -61,6 +63,7 @@ public class CategoryResource {
 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @PutMapping(value = "/{id}")/*Put é um método não idepotente,
     salvar recurso de forma idempotente (se existir o produto do mesmo id, ele salva  o mesmo produto e não salva outro)*/
     public ResponseEntity<CategoryDTO> update (
@@ -73,6 +76,7 @@ public class CategoryResource {
 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @DeleteMapping(value =  "/{id}") /*No padrão REST utilizamos o delete do HTTP*/
     public ResponseEntity<Void> delete (@PathVariable Long id) {/*Delete
     não tem corpo na resposta por isso podemos usar void */

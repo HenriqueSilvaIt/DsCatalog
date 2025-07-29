@@ -50,7 +50,7 @@ public class ProductResource {
         return ResponseEntity.ok().body(dto);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @PostMapping
     public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto) {
 
@@ -69,7 +69,7 @@ public class ProductResource {
 
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_OPERATOR')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @PutMapping(value = "/{id}")/*Put é um método não idepotente,
     salvar recurso de forma idempotente (se existir o produto do mesmo id, ele salva  o mesmo produto e não salva outro)*/
     public ResponseEntity<ProductDTO> update (
@@ -82,7 +82,7 @@ public class ProductResource {
         return ResponseEntity.ok().body(dto);
 
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @DeleteMapping(value =  "/{id}") /*No padrão REST utilizamos o delete do HTTP*/
     public ResponseEntity<Void> delete (@PathVariable Long id) {/*Delete
     não tem corpo na resposta por isso podemos usar void */

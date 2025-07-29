@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,6 +28,7 @@ public class UserResource {
     /*Response Entity é um objeto do spring que vai encapsular o resultado da
     requisição
      */
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity <Page<UserDTO>> findAll(Pageable pageable) {
 
@@ -40,6 +42,7 @@ public class UserResource {
 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping(value = "/{id}")
     /*path variable é o parâmetro que você vai passa na rota*/
     public ResponseEntity<UserDTO> findByid(@PathVariable Long id) {
@@ -48,6 +51,7 @@ public class UserResource {
         return ResponseEntity.ok().body(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO dto) {
 
@@ -71,6 +75,7 @@ public class UserResource {
 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}")/*Put é um método não idepotente,
     salvar recurso de forma idempotente (se existir o produto do mesmo id, ele salva  o mesmo produto e não salva outro)*/
     public ResponseEntity<UserDTO> update (
@@ -89,6 +94,7 @@ public class UserResource {
 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @DeleteMapping(value =  "/{id}") /*No padrão REST utilizamos o delete do HTTP*/
     public ResponseEntity<Void> delete (@PathVariable Long id) {/*Delete
     não tem corpo na resposta por isso podemos usar void */
