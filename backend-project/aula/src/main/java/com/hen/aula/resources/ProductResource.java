@@ -1,6 +1,7 @@
 package com.hen.aula.resources;
 
 import com.hen.aula.dto.ProductDTO;
+import com.hen.aula.projections.ProductProjection;
 import com.hen.aula.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,10 @@ public class ProductResource {
      */
 
     @GetMapping
-    public ResponseEntity <Page<ProductDTO>> findAll(Pageable pageable) {
+    public ResponseEntity <Page<ProductProjection>> findAll(Pageable pageable) {
 
 
-        Page<ProductDTO> list = service.findAllPaged(pageable);
+        Page<ProductProjection> list = service.testQuery(pageable);
 
         return ResponseEntity.ok().body(list);
         /* .body  é para definir o corpo da resposta você pode colocar

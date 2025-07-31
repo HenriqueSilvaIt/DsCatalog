@@ -4,6 +4,7 @@ import com.hen.aula.dto.CategoryDTO;
 import com.hen.aula.dto.ProductDTO;
 import com.hen.aula.entities.Category;
 import com.hen.aula.entities.Product;
+import com.hen.aula.projections.ProductProjection;
 import com.hen.aula.repositories.CategoryRepository;
 import com.hen.aula.repositories.ProductRepository;
 import com.hen.aula.services.expections.DatabaseException;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service /*Essa anotation registra essa classe  como um componente
@@ -154,5 +156,10 @@ public class ProductService {
                 entity.getCategories().add(category);
 
             }
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ProductProjection> testQuery(Pageable pageable) {
+        return repository.searchProduct(Arrays.asList(1L, 3L), "", pageable);
     }
 }
