@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController /*Transforma a classe em um recurso Rest, esse anotation
  efetua um pré processamento ao compila essa clase*/
@@ -25,9 +26,9 @@ public class CategoryResource {
     requisição
      */
     @GetMapping
-    public ResponseEntity <Page<CategoryDTO>> findAll(Pageable pageable) {
+    public ResponseEntity <List<CategoryDTO>> findAll() {
 
-        Page<CategoryDTO> list = service.findAll(pageable);
+        List<CategoryDTO> list = service.findAll();
 
         return ResponseEntity.ok().body(list);
         /* .body  é para definir o corpo da resposta você pode colocar

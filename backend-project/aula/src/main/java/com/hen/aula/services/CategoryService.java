@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service /*Essa anotation registra essa classe  como um componente
 que vai particiar do sistema de depência automatizado do spring, se for
@@ -25,10 +27,10 @@ public class CategoryService {
     private CategoryRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<CategoryDTO> findAll(Pageable pageable) {
+    public List<CategoryDTO> findAll() {
 
         // Busca lista de categoria no banco de dados e salva nessa list
-        Page<Category> list = repository.findAll(pageable);
+        List<Category> list = repository.findAll();
 
         /*        List<CategoryDTO> listDto  = .
         Stream é um recurso do java 8 em diante
@@ -41,7 +43,7 @@ public class CategoryService {
           dto de categoryDTo para cada item da list de category
           ai tem que usar o collect para transformar a stream em lista denovo */
 
-        return list.map(x -> new CategoryDTO(x)); /* o repository já tem o método
+        return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList()); /* o repository já tem o método
         find all*/
 
     }
