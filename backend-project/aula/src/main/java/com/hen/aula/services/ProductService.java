@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Service /*Essa anotation registra essa classe  como um componente
@@ -159,7 +160,32 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductProjection> testQuery(Pageable pageable) {
-        return repository.searchProduct(Arrays.asList(1L, 3L), "", pageable);
+    public Page<ProductProjection> testQuery(String name, String categoryId, Pageable pageable) {
+
+   /*criando vetor de string divindo posição por  ,*/
+        //String[] vetString = categoryId.split(",");
+    /*Transformando vetor de string em lista de cateegoryId formato String*/
+    List<Long> categoryIds = Arrays.asList();
+    /*VALIDA se a lista de string está vazia se n tiver
+    * vazia 0, então tem algo nela ai posso fazer a conversão em lista
+    * de cateegoryId long */
+        if(!"0".equals(categoryId)) {
+            /*Transformando a Lista de string em lista de Long*/
+             categoryIds = Arrays.asList(categoryId.split(",")).stream().map(x -> Long.parseLong(x)).toList();
+        /*parse Long.parseLong transforma transforma
+        * o elemento de string para long, é possível fazer
+        * a expressão lambada dentro do map que resume a conversão
+        *  Long::parseLong  tb funciona
+        *
+        *é possível resumir o arrays . as list dessa forma
+  List<Long> categoryIds = Arrays.asList.stream().map(Long::parseLong).toList();
+  * e também quiser eliminar a linha do vetor é possível fazer assim
+  *
+  List<Long> categoryIds = Arrays.asList(categoryId.split(",")).stream().map(Long::parseLong).toList();
+         */
+        }
+
+
+        return repository.searchProduct(categoryIds, name,  pageable);
     }
 }
