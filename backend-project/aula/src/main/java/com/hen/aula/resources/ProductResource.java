@@ -31,10 +31,15 @@ public class ProductResource {
      */
 
     @GetMapping
-    public ResponseEntity <Page<ProductProjection>> findAll(Pageable pageable) {
+    public ResponseEntity <Page<ProductDTO>> findAllPaged(
+            @RequestParam(value = "name", defaultValue = "") String name, /*É importante
+            colocar o mesmo nome no RequestParam na variavel, e o default value
+            é se não informa qual vai ser o valor padrão*/
+            @RequestParam(value = "categoryId", defaultValue = "0") String categoryid,
+            Pageable pageable) {
 
 
-        Page<ProductProjection> list = service.testQuery(pageable);
+        Page<ProductDTO> list = service.findAllPaged(name, categoryid, pageable);
 
         return ResponseEntity.ok().body(list);
         /* .body  é para definir o corpo da resposta você pode colocar

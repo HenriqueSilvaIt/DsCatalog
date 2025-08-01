@@ -9,10 +9,11 @@ import com.hen.aula.repositories.CategoryRepository;
 import com.hen.aula.repositories.ProductRepository;
 import com.hen.aula.services.expections.DatabaseException;
 import com.hen.aula.services.expections.ResourceNotFoundException;
+import com.hen.aula.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,7 +35,7 @@ public class ProductService {
     private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAllPaged(Pageable pageable) {
+    public Page<ProductDTO> findAll(Pageable pageable) {
 
         // Busca lista de categoria no banco de dados e salva nessa list
         Page<Product> list = repository.findAll(pageable);
@@ -159,8 +160,9 @@ public class ProductService {
             }
     }
 
+    @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
-    public Page<ProductProjection> testQuery(String name, String categoryId, Pageable pageable) {
+    public Page<ProductDTO> findAllPaged(String name, String categoryId, Pageable pageable) {
 
    /*criando vetor de string divindo posição por  ,*/
         //String[] vetString = categoryId.split(",");
@@ -186,6 +188,30 @@ public class ProductService {
         }
 
 
-        return repository.searchProduct(categoryIds, name,  pageable);
+        Page<ProductProjection> page = repository.searchProduct(categoryIds, name,  pageable);
+        List<Long> productIds = page.map(x -> x.getId()).stream().toList(); /*vamos pegar os ids do produtos da
+        consulta searchProduct*/
+
+        /*buscando lista de produtos com categorias, passando a lista de productsIds que encontramos
+        * na página na primeira consulta*/
+        List<Product> entities = repository.searchProductWithCategories(productIds);
+
+        /*o resultado da consulta acima está desornado
+        * com a Utils.replace abaixo estamos gerando uma nova lista enties ordenada
+        * baseada na ordernadação da página page.getContent( que o usuário colocou*/
+        entities = (List<Product>) Utils.replace(page.getContent(), entities); /*Vamos gerar nova lista
+        aproveitando o que tinha na pagina com replace, e */
+        /*convertendo a lista de produtos acima em lista de productDTO*/
+
+        List<ProductDTO> dtos = entities.stream().map(x -> new ProductDTO(x, x.getCategories())).toList();
+
+        /*Gerando uma pagina de product DTO*/
+
+        Page<ProductDTO> pageDTO = new PageImpl<>(dtos, page.getPageable(), page.getTotalElements());
+        /*PageImpl (instancia um novo pageable)
+        **/
+
+        return pageDTO;
     }
+
 }

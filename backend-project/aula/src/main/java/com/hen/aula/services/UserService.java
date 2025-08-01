@@ -87,6 +87,21 @@ public class UserService implements UserDetailsService {
         User entity = new User();
        /* entity.setName(dto.getName());*/
         copyDtotoEntity(dto, entity);
+
+
+
+        /*agora considerando a criação do usuário
+         * vamos ignorar o DTO que inclui os roles (porque o usuário n vai mais
+         * digitar os roles por padrão ele vai ter role operator) e colocar
+         * direto o usuário que se cadastrar como role operator */
+
+        entity.getRoles().clear(); /*limpa a lista de perfis no caso
+            de alteração ou inserçã*/
+
+        Role role = roleRepository.findByAuthority("ROLE_OPERATOR");
+        entity.getRoles().add(role); /*agora estamos inserindo um usuário
+        que vai ter somente o role de operato*/
+
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         /*para pegar especificamente a senha que o usuário digitar,
          como a senha está especificamento no UserInsertDto, não
@@ -161,8 +176,16 @@ public class UserService implements UserDetailsService {
             entity.setLastName(dto.getLastName());
             entity.setEmail(dto.getEmail());
 
+
+            /*agora considerando a criação do usuário
+            * vamos ignorar o DTO que inclui os roles (porque o usuário n vai mais
+            * digitar os roles por padrão ele vai ter role operator) e colocar
+            * direto o usuário que se cadastrar como role operator */
+
                 entity.getRoles().clear(); /*limpa a lista de perfis no caso
             de alteração ou inserçã*/
+
+
             for (RoleDTO roleDto: dto.getRoles()) {
                 /*getReferenceByid instancia uma entidade sem precisa acessar
                 *  o banco só acessa o banco quando salv*/
