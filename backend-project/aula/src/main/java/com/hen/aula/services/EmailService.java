@@ -43,7 +43,7 @@ public class EmailService {
             emailSender.send(message);
         }
         catch (MailException e){
-        	throw new EmailException("Failed to send email");
+        	throw new EmailException("Failed to send email" + e.getMessage());
             /*caso de algum erro no envio do email, email
             * exception é uma exceção customizada e tem também
             *  o exception handler para lança uma exceção http customizada se der

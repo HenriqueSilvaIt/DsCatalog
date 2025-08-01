@@ -81,7 +81,7 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public UserDTO insert(UserInsertDTO dto)
-    /* esse DTO específico tem todos
+    /* esse DTO específico t    em todos
     * os atributos da super classe  UserDTO e mais a senha*/{
 
         User entity = new User();
