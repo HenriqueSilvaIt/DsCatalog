@@ -1,5 +1,88 @@
 h2 {
-    font-size: 40px;
+    font-size: 18px;
+ 
+    color: var(--color-font-primary);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+p {
+ 
+    font-size: 13px;
+    color: var(--color-font-tertiary);
+}
+
+.dscatalog-card-container{
+   text-align: center;
+    width: 280px;
+    height:  500px;
+    margin: 20px 20px 0 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+
+
+} 
+
+.dscatalog-img-card{
+
+    height: 200px;
+    width: 250px;
+
+}
+
+.dscatalog-card-deitals-container{
+
+    margin-top: 40px;
+    width: 200px;
+    height: 481px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.dscatalog-btn-search{
+    display: flex;
+    margin-top: 20px;
+}
+
+.dscatalog-img-card-container{
+
+    display: flex;
+    
+}
+
+
+.dscatalog-card-position{
+
+    height: 400px;
+    display:  flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@media(min-width: 576px) {
+    
+.dscatalog-card-position{
+   text-align: left;
+    height: 400px;
+    width: 800px;
+    display:  flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+      max-width: 800px; /* Limita a largura para evitar que o texto se estenda demais */
+
+
+}
+
+    h2 {
+    font-size: 36px;
     color: var(--color-font-primary);
     font-weight: bold;
     margin-bottom: 26px;
@@ -8,43 +91,52 @@ h2 {
 p {
     font-size: 16px;
     color: var(--color-font-tertiary);
+    max-width: 380px;
+
 }
 
 .dscatalog-card-container{
 
     margin-top: 40px;
-    padding: 20px;
+    padding: 80px;
     width: 960px;
     height:  480px;
     border-radius: 20px;
     display: flex;
+    align-items: center;
     justify-content: center;
     background-color: #fff;
-
+    
 
 } 
 
 .dscatalog-img-card{
 
-    height: 300x;
+    height: 400px;
     width: 440px;
 
 }
 
 .dscatalog-card-deitals-container{
-
-    margin-top: 50px;
-    margin-left: 40px;
-    width: 1000px;
+    margin: 0 auto;
+    margin-left:  10px;
+    width: 800px;
     height: 481px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+
 
 }
 
 .dscatalog-btn-search{
+
+    margin-top: 40px;
     display: flex;
-    margin-top: 90px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: left;
+    margin-right: 43px;
 }
 
 .dscatalog-img-card {
@@ -53,7 +145,9 @@ p {
 }
 
 .dscatalog-img-card-container{
-
-    display: flex;
+    margin: 0 auto;
     
+}
+
+
 }
