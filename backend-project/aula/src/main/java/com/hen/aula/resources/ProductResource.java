@@ -16,6 +16,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RestController /*Transforma a classe em um recurso Rest, esse anotation
  efetua um pré processamento ao compila essa clase*/
 @RequestMapping(value = "/products") /*Aqui você passa a rota*/
@@ -50,50 +52,51 @@ public class ProductResource {
 
     @GetMapping(value = "/{id}")
     /*path variable é o parâmetro que você vai passa na rota*/
-    public ResponseEntity<ProductDTO> findByid(@PathVariable Long id) {
-        ProductDTO dto  = service.findById(id);
+        public ResponseEntity<ProductDTO> findByid (@PathVariable Long id){
+            ProductDTO dto = service.findById(id);
 
-        return ResponseEntity.ok().body(dto);
-    }
+            return ResponseEntity.ok().body(dto);
+        }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
-    @PostMapping
-    public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto) {
+        @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+        @PostMapping
+        public ResponseEntity<ProductDTO> insert (@Valid @RequestBody ProductDTO dto){
 
-        dto = service.insert(dto);
+            dto = service.insert(dto);
 
-        /*Objeto que pega o endereço do objeto criado*/
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id")
-                .buildAndExpand(dto.getId()).toUri();
+            /*Objeto que pega o endereço do objeto criado*/
+                URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(dto.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(dto);
+            return ResponseEntity.created(uri).body(dto);
         /*create retorna 201 que é o código mais correto de recurso criado
         convém você também retornar o Location que é o endereço
          desse novo recurso criado na aba header do postman na requisição que mostrar o local
         de onde 201 http location header*/
 
-    }
+        }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
-    @PutMapping(value = "/{id}")/*Put é um método não idepotente,
+        @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+        @PutMapping(value = "/{id}")/*Put é um método não idepotente,
     salvar recurso de forma idempotente (se existir o produto do mesmo id, ele salva  o mesmo produto e não salva outro)*/
-    public ResponseEntity<ProductDTO> update (
-            @PathVariable Long id,
-            @Valid
-            @RequestBody ProductDTO dto) {
+        public ResponseEntity<ProductDTO> update (
+                @PathVariable Long id,
+                @Valid
+                @RequestBody ProductDTO dto){
 
-        dto = service.update(id, dto);
+            dto = service.update(id, dto);
 
-        return ResponseEntity.ok().body(dto);
+            return ResponseEntity.ok().body(dto);
 
-    }
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
-    @DeleteMapping(value =  "/{id}") /*No padrão REST utilizamos o delete do HTTP*/
-    public ResponseEntity<Void> delete (@PathVariable Long id) {/*Delete
+        }
+        @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+        @DeleteMapping(value = "/{id}") /*No padrão REST utilizamos o delete do HTTP*/
+        public ResponseEntity<Void> delete (@PathVariable Long id){/*Delete
     não tem corpo na resposta por isso podemos usar void */
-        service.delete(id);
-        return ResponseEntity.noContent().build();
-        /*204 quer dizer que deu certo mas no corpo da resposta está vaizo*/
+            service.delete(id);
+            return ResponseEntity.noContent().build();
+            /*204 quer dizer que deu certo mas no corpo da resposta está vaizo*/
+        }
+
     }
-}

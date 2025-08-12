@@ -61,6 +61,8 @@ para obter o resultado*/
 
     private Category category;
 
+    private   PageImpl pag;
+
     private Long nonExistingId;
 
     @BeforeEach void setUp() throws Exception {
@@ -71,6 +73,7 @@ para obter o resultado*/
         category = Factory.createCategory();
         productDTO = Factory.createProductDTO();
         page = new  PageImpl<>(List.of(product));
+        pag = new PageImpl<>(List.of());
 
         when(repository.findAll((Pageable)ArgumentMatchers.any())).thenReturn(page);
 
@@ -110,7 +113,7 @@ para obter o resultado*/
 
         Pageable page = PageRequest.of(1,   10);
 
-        Page<ProductDTO> result = service.findAllPaged(page);
+        Page<ProductDTO> result = service.findAllPaged("", "", pag.getPageable());
 
         Assertions.assertNotNull(result);
 

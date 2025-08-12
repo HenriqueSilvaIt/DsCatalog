@@ -9,9 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @SpringBootTest /*Usamos essa pois é teste de integração
 e essa anotatio carrega o contexto da aplicação*/
@@ -32,13 +35,15 @@ public class ProductServiceIntegration {
     private Long existingId;
     private Long nonExistingId;
     private Long countTotalProducts;
-
+    private   PageImpl page;
     @BeforeEach
     void setUp() throws Exception {
         existingId = 1L;
         nonExistingId = 1000L;
         countTotalProducts = 25L; /*
         Quantidade de produto no si*/
+
+        page = new PageImpl<>(List.of());
     }
 
     @Test
@@ -71,7 +76,7 @@ public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
 
         PageRequest pageRequest = PageRequest.of(0, 10);
 
-        Page<ProductDTO> result =  service.findAllPaged(pageRequest);
+        Page<ProductDTO> result =  service.findAllPaged("", "", page.getPageable());
 
         Assertions.assertFalse(result.isEmpty());
         /*aSSERTfALSE PARA garantir que o resultado n está vazia
@@ -89,7 +94,7 @@ public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
     public void findAllPagedShouldReturnEmptyWhenPageDoesNotExists() {
         PageRequest pageRequest = PageRequest.of(50, 10);
 
-        Page<ProductDTO> result = service.findAllPaged(pageRequest);
+        Page<ProductDTO> result = service.findAllPaged("", "", page.getPageable());
 
         Assertions.assertTrue(result.isEmpty());
 
@@ -100,7 +105,7 @@ public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
 
         PageRequest pageRequest = PageRequest.of(0,  10, Sort.by("name"));
 
-        Page<ProductDTO> result = service.findAllPaged(pageRequest);
+        Page<ProductDTO> result = service.findAllPaged("", "", page.getPageable());
 
 
         Assertions.assertFalse(result.isEmpty());

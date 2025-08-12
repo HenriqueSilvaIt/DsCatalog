@@ -51,6 +51,15 @@ public class UserResource {
         return ResponseEntity.ok().body(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_OPERATOR','ROLE_ADMIN')")
+    @GetMapping(value = "/authenticated")
+    /*path variable é o parâmetro que você vai passa na rota*/
+    public ResponseEntity<UserDTO> findUserAuthenticated() {
+        UserDTO dto  = service.findUserAuthenticated();
+
+        return ResponseEntity.ok().body(dto);
+    }
+
 
 
     @PostMapping

@@ -1,0 +1,29 @@
+
+
+.dscatalog-button-search{
+
+    width: 250px;
+    height: 50px;
+    border-radius: 10px 0 0 10px;
+    background-color: var(--color-btn-bg);
+    border: 1px solid var(--color-btn-bg);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-font-secundary);
+    cursor: pointer;
+}
+
+
+.dscatalog-btn-img{
+
+    cursor: pointer;
+}
+
+.dsctalog-btn-submit{
+
+    height: 50px;
+    width: 50px;
+    background-color: #3055A3;
+    border: 1px solid #3055A3;
+    border-radius: 0 10px 10px 0;
+}

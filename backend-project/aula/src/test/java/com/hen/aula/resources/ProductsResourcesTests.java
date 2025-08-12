@@ -9,10 +9,10 @@ import com.hen.aula.services.expections.ResourceNotFoundException;
 import com.hen.aula.tests.Factory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -47,7 +47,7 @@ service*/
      * objeto auxiliar ele n é uma depêncendia do seu productResourco*/
 
 
-    @MockBean/*Mock normalmente utiliza
+    @Mock/*Mock normalmente utiliza
     quando estamos testando unidade é mais rapido e exunto
     quando a classe de teste carrega o contexto da aplicação
     e precisa mocar algum bin do sistema usamos o mock bin e ele
@@ -77,7 +77,7 @@ service*/
                 /*List.of permite que eu instanci uma lista já
                 * com ele mento dentro del*/
 
-        when(service.findAllPaged(any())).thenReturn(page);
+        when(service.findAllPaged(any(), "1", page.getPageable())).thenReturn(page);
         /*any é do ArgumentsMatchers.any() que significa qualquer argumento
         , se você preferir
         * estático é só colocar name e garatir que  o import foi

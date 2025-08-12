@@ -34,6 +34,9 @@ public class UserService implements UserDetailsService {
     private UserRepository repository;
 
     @Autowired
+    private AuthService authService;
+
+    @Autowired
     private RoleRepository roleRepository;
 
     @Autowired
@@ -77,6 +80,23 @@ public class UserService implements UserDetailsService {
         obttem a entdidade  que está dentro do optinal*/
 
         return new UserDTO(entity);
+    }
+
+
+
+    @Transactional
+    public UserDTO findUserAuthenticated() {
+        /*Optional é uma abordagem que veio desde do Java 8
+        para evitar você trabalhar com valor nulo, então esse variavel
+        que criamos nunca vai ser um objeto nulo, ela vai ser objeto Optional
+        e dentro desse Optional pode ter ou não um objeto User por exemplo
+        dentro dele, tem gente que defende
+        utilizar esse Optional tem gente que fala que não precisa
+        desde que você faça uma programação certinho pra checar se é nulo
+         */
+       User entity = authService.authenticated(); /*busca usário logado*/
+
+        return new UserDTO(entity); /*converte para DTO*/
     }
 
     @Transactional

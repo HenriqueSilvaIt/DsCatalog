@@ -1,0 +1,64 @@
+h1 {
+
+    color: var(--color-font-secundary);
+    font-size:24px;
+    font-weight: 700;
+  
+}
+
+header {
+
+    background-color: var(--color-bg-header);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.header-content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Adicione esta linha para garantir que o contêiner ocupe a largura total do header */
+}
+
+
+.dscatalog-nav-bar{
+
+    font-size: 18px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+     margin: 0 auto;
+    
+  
+}
+
+.menu-item {
+    margin-left: 20px;
+    color: var(--color-font-secundary);
+    font-weight: 0;
+}
+
+
+
+.menu-active {
+    font-weight: 700;
+  }
+
+.header-content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+
+.site-nav {
+    display:  flex;
+    margin: 0 0 0 20px;
+
+}
+

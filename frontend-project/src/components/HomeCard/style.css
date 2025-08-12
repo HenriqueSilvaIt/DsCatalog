@@ -1,0 +1,59 @@
+h2 {
+    font-size: 40px;
+    color: var(--color-font-primary);
+    font-weight: bold;
+    margin-bottom: 26px;
+}
+
+p {
+    font-size: 16px;
+    color: var(--color-font-tertiary);
+}
+
+.dscatalog-card-container{
+
+    margin-top: 40px;
+    padding: 20px;
+    width: 960px;
+    height:  480px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+
+
+} 
+
+.dscatalog-img-card{
+
+    height: 300x;
+    width: 440px;
+
+}
+
+.dscatalog-card-deitals-container{
+
+    margin-top: 50px;
+    margin-left: 40px;
+    width: 1000px;
+    height: 481px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.dscatalog-btn-search{
+    display: flex;
+    margin-top: 90px;
+}
+
+.dscatalog-img-card {
+
+    justify-content: right;
+}
+
+.dscatalog-img-card-container{
+
+    display: flex;
+    
+}

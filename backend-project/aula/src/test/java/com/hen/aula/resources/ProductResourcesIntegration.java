@@ -31,6 +31,8 @@ public class ProductResourcesIntegration {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
     private TokenUtil tokenUtil;
 
     private Long existingId;

@@ -1,0 +1,32 @@
+
+import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import './style.css';
+
+export default function HeaderDCatalog() {
+
+    return (
+        <header >
+
+            <div className="header-content-container dscatalog-container ">
+                        <Link to="/" >
+              <h1>DS Catalog</h1>
+                    </Link>
+      
+                    <nav  className="dscatalog-nav-bar">
+                <NavLink to="/home" className={({isActive}) => isActive ? "menu-item menu-active" : "menu-item"  }>
+                        HOME
+                </NavLink>
+                <NavLink to="/catalog" className={({isActive}) => isActive ? "menu-item menu-active" : "menu-item"}>
+                        CÁTALOGO
+                </NavLink>
+                     <NavLink to="/admin" className={({isActive}) => isActive ? "menu-item menu-active" : "menu-item" }>
+                        ADMIN
+                </NavLink>
+           
+           
+          </nav>
+               </div>
+        </header>
+    );
+}

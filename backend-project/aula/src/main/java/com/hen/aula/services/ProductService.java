@@ -208,8 +208,7 @@ public class ProductService {
         /*Gerando uma pagina de product DTO*/
 
         Page<ProductDTO> pageDTO = new PageImpl<>(dtos, page.getPageable(), page.getTotalElements());
-        /*PageImpl (instancia um novo pageable)
-        **/
+        /*PageImpl (instancia um novo pageable) */
 
         return pageDTO;
     }
