@@ -1,5 +1,12 @@
 .dscatalog-pagination-container{
 
+    display: none;
+}
+
+@media (min-width: 576px) {
+
+.dscatalog-pagination-container{
+
     margin: 30px    ;
     display: flex;
     justify-content: center;
@@ -48,4 +55,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
 }

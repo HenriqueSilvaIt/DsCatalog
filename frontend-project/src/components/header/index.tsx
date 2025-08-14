@@ -18,7 +18,7 @@ export default function HeaderDCatalog() {
 
     return (
         <header >
-            <div className=" dscatalog-container header-content-container ">
+            <div className="  header-content-container dscatalog-container ">
 
                 <Link to="/" >
                     <h1> DS Catalog</h1>

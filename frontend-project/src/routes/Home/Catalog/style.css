@@ -2,8 +2,34 @@
 
 .dscatalog-catalog-container{ 
 
-    display: flex;
+    display:flex;
     flex-direction: column;
-    width: 100%;
-    margin: 0 20px;
+    justify-content: center;    
+
+      padding: 0 20px;
+}
+
+
+@media(min-width: 576px) {
+
+    
+
+.dscatalog-catalog-container{ 
+
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+
+      padding: 0 ;
+}
+
+.dscatalog-product-list {
+    display: grid; /* Usa grid para o layout dos cards */
+      grid-gap: 10px;/* fazendo espaçamento entre um card e outro*/
+    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr)); /*primeiro argumento é pree
+    nchimento automático e o segundo argumento é é um minimo e o máximo
+    então quando a tela for expandindo e ating a largura minima do card
+     ele acrescenta mais um, e máximo colocamndo a fração que é 1*/
+
+}
 }

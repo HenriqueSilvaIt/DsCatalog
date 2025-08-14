@@ -1,142 +1,28 @@
 import './style.css';
-import computerImg from '../../assets/computer.svg';
+import type { ProductDTO } from '../../models/product';
 
-export default function CatalogCard() {
+type Props = {
+    product: ProductDTO;
+}
+
+export default function CatalogCard({product}: Props) {
+
+
 
     return (
         <>
 
-            <div className="dscatalog-card-catalog-container dscatalog-container">
+            <div className="dscatalog-card-catalog-container ">
                 <div className="dscatalog-card-catalog">
-                    <img src={computerImg} alt="computer" />
+                    <img src={product.imgUrl} alt={product.name} />
                     <div className="dscatalog-card-catalog-details">
-                        <h3>Computador Desktop - Intel Core i7</h3>
+                        <h3>{product.name}</h3>
                         <div className="dscatalog-card-description">
                             <p>R$</p>
-                            <h4>  2.779,00</h4>
+                            <h4> {product.price.toFixed(2)}</h4>
                         </div>
                     </div>
                 </div>
-
-  <div className="dscatalog-card-catalog">
-                    <img src={computerImg} alt="computer" />
-                    <div className="dscatalog-card-catalog-details">
-                        <h3>Computador Desktop - Intel Core i7</h3>
-                        <div className="dscatalog-card-description">
-                            <p>R$</p>
-                            <h4>  2.779,00</h4>
-                        </div>
-                    </div>
-                </div>
-
-  <div className="dscatalog-card-catalog">
-                    <img src={computerImg} alt="computer" />
-                    <div className="dscatalog-card-catalog-details">
-                        <h3>Computador Desktop - Intel Core i7</h3>
-                        <div className="dscatalog-card-description">
-                            <p>R$</p>
-                            <h4>  2.779,00</h4>
-                        </div>
-                    </div>
-                </div>
-
-  <div className="dscatalog-card-catalog">
-                    <img src={computerImg} alt="computer" />
-                    <div className="dscatalog-card-catalog-details">
-                        <h3>Computador Desktop - Intel Core i7</h3>
-                        <div className="dscatalog-card-description">
-                            <p>R$</p>
-                            <h4>  2.779,00</h4>
-                        </div>
-                    </div>
-                </div>
-
-                  <div className="dscatalog-card-catalog">
-                    <img src={computerImg} alt="computer" />
-                    <div className="dscatalog-card-catalog-details">
-                        <h3>Computador Desktop - Intel Core i7</h3>
-                        <div className="dscatalog-card-description">
-                            <p>R$</p>
-                            <h4>  2.779,00</h4>
-                        </div>
-                    </div>
-                </div>
-                  <div className="dscatalog-card-catalog">
-                    <img src={computerImg} alt="computer" />
-                    <div className="dscatalog-card-catalog-details">
-                        <h3>Computador Desktop - Intel Core i7</h3>
-                        <div className="dscatalog-card-description">
-                            <p>R$</p>
-                            <h4>  2.779,00</h4>
-                        </div>
-                    </div>
-                </div>
-                  <div className="dscatalog-card-catalog">
-                    <img src={computerImg} alt="computer" />
-                    <div className="dscatalog-card-catalog-details">
-                        <h3>Computador Desktop - Intel Core i7</h3>
-                        <div className="dscatalog-card-description">
-                            <p>R$</p>
-                            <h4>  2.779,00</h4>
-                        </div>
-                    </div>
-                </div>
-
-  <div className="dscatalog-card-catalog">
-                    <img src={computerImg} alt="computer" />
-                    <div className="dscatalog-card-catalog-details">
-                        <h3>Computador Desktop - Intel Core i7</h3>
-                        <div className="dscatalog-card-description">
-                            <p>R$</p>
-                            <h4>  2.779,00</h4>
-                        </div>
-                    </div>
-                </div>
-
-                  <div className="dscatalog-card-catalog">
-                    <img src={computerImg} alt="computer" />
-                    <div className="dscatalog-card-catalog-details">
-                        <h3>Computador Desktop - Intel Core i7</h3>
-                        <div className="dscatalog-card-description">
-                            <p>R$</p>
-                            <h4>  2.779,00</h4>
-                        </div>
-                    </div>
-                </div>
-
-                  <div className="dscatalog-card-catalog">
-                    <img src={computerImg} alt="computer" />
-                    <div className="dscatalog-card-catalog-details">
-                        <h3>Computador Desktop - Intel Core i7</h3>
-                        <div className="dscatalog-card-description">
-                            <p>R$</p>
-                            <h4>  2.779,00</h4>
-                        </div>
-                    </div>
-                </div>
-
-                  <div className="dscatalog-card-catalog">
-                    <img src={computerImg} alt="computer" />
-                    <div className="dscatalog-card-catalog-details">
-                        <h3>Computador Desktop - Intel Core i7</h3>
-                        <div className="dscatalog-card-description">
-                            <p>R$</p>
-                            <h4>  2.779,00</h4>
-                        </div>
-                    </div>
-                </div>
-
-                  <div className="dscatalog-card-catalog">
-                    <img src={computerImg} alt="computer" />
-                    <div className="dscatalog-card-catalog-details">
-                        <h3>Computador Desktop - Intel Core i7</h3>
-                        <div className="dscatalog-card-description">
-                            <p>R$</p>
-                            <h4>  2.779,00</h4>
-                        </div>
-                    </div>
-                </div>
-        
             </div>
         </>
     );

@@ -110,7 +110,8 @@ header {
 @media(min-width: 570px) {
 
     h1 {
-
+    
+    margin: 0;
     color: var(--color-font-secundary);
     font-size:24px;
     font-weight: 700;
@@ -129,6 +130,7 @@ header {
 }
 
 .header-content-container {
+    padding: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -142,13 +144,11 @@ header {
     flex-direction: row;
     align-items: left;
     justify-content: center;
-    margin: 0 auto;
     position: static;
     top: 60px;
     left: 0;
     width: 100%;
     background-color: transparent;
-    padding: 10px 20px;
     z-index: 1000;
     
 

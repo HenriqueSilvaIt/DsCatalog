@@ -15,8 +15,6 @@ export default function HomeCard() {
                     <div className="dscatalog-btn-search">
                         <ButtonSeach />
                     </div>
-
-
                 </div>
             </div>
         </div>
