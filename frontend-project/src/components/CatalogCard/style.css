@@ -1,0 +1,180 @@
+.dscatalog-container h2 { 
+
+    color: #000;
+    font-size: 20px;
+}
+
+.dscatalog-container  {
+
+    display: flex;
+    justify-content: center;
+
+
+
+}
+
+.dscatalog-card-container{ 
+ 
+   
+   flex-wrap: wrap; /*quebra a linha
+      quando estoura a largura */
+      
+    }
+
+.dscatalog-card-catalog{
+
+    margin: 20px 0;
+   background-color: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    max-width: 280px; /* mantendo mesma altura 
+    no card mesmo se expandi a tela */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+    /*   sombreado */
+
+}
+
+
+
+
+.dscatalog-card-catalog-details {
+
+    border-top: 1px solid #E1E1E1;
+
+}
+
+
+.dscatalog-card-catalog img{
+
+    width: 100%;
+    height: 171px;
+    padding: 0 10px;
+
+
+}
+
+.dscatalog-card-catalog  h3{
+    margin-top: 20px;
+    color: #000;
+    font-size: 16px;
+}
+
+
+.dscatalog-card-description  {
+
+    display: flex;
+    justify-content: left;
+    margin-top: 5px;
+    
+}
+
+.dscatalog-card-description p {
+
+    font-size: 16px;
+    margin: 10px 10px 0 0 ;
+    
+}
+
+.dscatalog-card-description   h4{
+
+    color: #407BFF;
+    font-size: 30px;
+}
+
+@media(min-width: 576px) {
+
+    .dscatalog-container h2 { 
+
+    color: #000;
+    font-size: 20px;
+}
+
+.dscatalog-container  {
+
+    display: flex;
+    justify-content: center;
+
+
+
+}
+
+.dscatalog-card-catalog-container{
+
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+       flex-wrap: wrap; /*quebra a linha
+      quando estoura a largura */
+          display:grid;
+    grid-gap: 20px;/* fazendo espaçamento entre um card e outro*/
+    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr)); /*primeiro argumento é pree
+    nchimento automático e o segundo argumento é é um minimo e o máximo
+    então quando a tela for expandindo e ating a largura minima do card
+     ele acrescenta mais um, e máximo colocamndo a fração que é 1*/ 
+}
+
+
+
+
+.dscatalog-card-catalog{
+
+    margin: 5px 0;
+   background-color: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    max-width: 280px; /* mantendo mesma altura 
+    no card mesmo se expandi a tela */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+    /*   sombreado */
+
+}
+
+
+
+
+.dscatalog-card-catalog-details {
+
+    border-top: 1px solid #E1E1E1;
+
+}
+
+
+.dscatalog-card-catalog img{
+
+    width: 100%;
+    height: 171px;
+    padding: 0 10px;
+
+
+}
+
+.dscatalog-card-catalog  h3{
+    margin-top: 20px;
+    color: #000;
+    font-size: 16px;
+}
+
+
+.dscatalog-card-description  {
+
+    display: flex;
+    justify-content: left;
+    margin-top: 5px;
+    
+}
+
+.dscatalog-card-description p {
+
+    font-size: 16px;
+    margin: 10px 10px 0 0 ;
+    
+}
+
+.dscatalog-card-description   h4{
+
+    color: #407BFF;
+    font-size: 30px;
+}
+
+
+}

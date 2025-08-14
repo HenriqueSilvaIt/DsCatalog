@@ -1,18 +1,25 @@
 
 import CatalogCard from '../../../components/CatalogCard';
+import PaginationCatalog from '../../../components/PaginationCatalog';
+import SearchCatalogBar from '../../../components/SearchCatalogBar';
 import './style.css';
 
 export default function Catalog() {
 
 
-    return(
+    return (
         <>
-        
+            <main >
+                <section className="dscatalog-catalog-container">
 
-        <section> 
-            <CatalogCard/>
+                    <SearchCatalogBar />
 
-        </section>
+                    <CatalogCard />
+
+
+                    <PaginationCatalog/>
+                </section>
+            </main>
         </>
     );
 

@@ -13,12 +13,12 @@ header {
     height: 60px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .header-content-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between !important; /*da prioridade*/
     padding: 0 20px;
     height: 60px;
     align-items: center;

@@ -5,15 +5,16 @@
   --color-font-secundary: #fff;
   --color-font-tertiary: #9E9E9E;
 
-  --color-bg-wallpaper: #dedede;
+  --color-bg-wallpaper: #ede9e9;
 
 
-
+  --color-bg-primary: #fff;
   --color-btn-bg: #407BFF;
   --color-btn-submit: #26323880;
 
   --color-bg-header: #407BFF;
   
+  --color-font-placeholder: #d9d9d9;
 
 }
 
