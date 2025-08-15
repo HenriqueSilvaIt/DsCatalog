@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './style.css';
+import type { CategoryDTO } from '../../models/category';
+import * as categoryService from '../../services/category-service';
 
 type Props = {
 
@@ -8,24 +10,49 @@ type Props = {
 }
 
 
-
 export default function SearchCatalogBar({ onSearch }: Props) {
 
     const [text, setText] = useState<string>("");
 
+    const [categories, setCategories] = useState<CategoryDTO[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<CategoryDTO | null>(null);
+
+    useEffect(() => {
+        categoryService.findAll()
+            .then(response => {
+                const allCategory: CategoryDTO = { id: 0, name: "Categorias" };
+                setCategories([allCategory, ...response.data]);
+                setSelectedCategory(allCategory); // Todas categorias como padrão
+            })
+            .catch(error => {
+                console.log("Erro ao buscar categorias", error);
+            })
+
+    }, []);
+
     function handleClickReset() {
         setText('');
-        onSearch(text);
+        onSearch(" ", categories[0].id);
+        setSelectedCategory(categories[0]);
     }
 
     function handleInputChange(event: any) {
-     
+
         setText(event.target.value);
+
+    }
+
+    function handleCategoryChange(event: any) {
+
+        const categoryId = parseInt(event.target.value, 10);
+        const category = categories.find(cat => cat.id === categoryId);
+        setSelectedCategory(category || null);
+           onSearch(text, category?.id);
     }
 
     function handleFormSubmit(event: any) {
         event.preventDefault();
-        onSearch(text);
+        onSearch(text, selectedCategory ? selectedCategory.id : null );
     }
 
 
@@ -44,9 +71,14 @@ export default function SearchCatalogBar({ onSearch }: Props) {
                         <button type="submit">🔎︎</button>
                     </form>
                     <div className="dscatalog-bar-category">
-                        <select className="dscatalog-select">
-                            <option value="Categoria" > Categoria</option>
-                            <option value="otherOption">Other option</option>
+                        <select className="dscatalog-select"
+                            onChange={handleCategoryChange}
+                            value={selectedCategory?.id}>
+                            {categories.map(cat => (
+                                <option key={cat.id} value={cat.id}>
+                                    {cat.name}
+                                </option>
+                            ))}
                         </select>
                         <button name="reset" onClick={handleClickReset} >LIMPAR FILTRO</button>
                     </div>

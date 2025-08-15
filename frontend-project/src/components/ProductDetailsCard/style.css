@@ -1,0 +1,231 @@
+
+.dscatalog-product-details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 280px;
+    height: 100%;
+    max-height: 1000px;
+    margin: 20px 0px;
+    padding: 10px 10px;
+    background-color: var(--color-bg-primary);
+    border-radius: 10px;
+    
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+    /*   sombreado */
+}
+
+
+.dscatalog-product-details-card{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.dscatalog-product-details-img img{
+
+    border: 1px solid #E1E1E1;
+    border-radius: 10px;
+}
+
+ h2 {
+
+   font-size: 25px;
+   margin: 10px;
+    
+}
+
+.dscatalog-product-details-price  {
+
+    display: flex;
+    margin: 0 10px 20px 10px;
+}   
+
+
+.dscatalog-product-details-title {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10px;
+
+}
+
+.dscatalog-product-details-title  h4{
+
+    color: #407BFF;
+    font-size: 30px;
+     align-self: flex-end;
+  
+}
+
+
+.dscatalog-product-details-title p {
+
+    font-size: 16px;
+    margin: 10px 10px 0 0 ;
+ 
+}
+
+.dscatalog-product-details-description{
+
+    margin: 10px 10px;
+    padding: 10px;
+    border: 1px solid #E1E1E1;
+    border-radius: 10px;
+    width: 260px;
+    height: 500px;
+    text-align: left;
+}
+
+
+.dscatalog-product-details-button {
+
+    display: flex ;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    margin: 10px 0;
+    padding-left:  10px;
+
+}
+
+
+.dscatalog-product-details-button button {
+
+    background-color: transparent;
+    border: none;
+    font-weight: 700;
+    font-size: 20px;
+     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+}
+
+.dscatalog-product-details-button span {
+    font-size: 20px;
+    margin-right: 10px; 
+    font-weight: 700; 
+    color: #407BFF;
+}
+
+@media(min-width: 576px) {
+
+
+.dscatalog-product-details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 990px;
+    height: 550px;
+    padding: 10px 10px;
+    background-color: var(--color-bg-primary);
+
+}
+
+.dscatalog-product-details-card-container{
+
+    display: flex;
+}
+
+.dscatalog-product-details-card{
+
+    display: flex;
+    flex-direction: column;
+}
+
+.dscatalog-product-details-img img{
+
+    border: 1px solid #E1E1E1;
+    border-radius: 10px;
+    width: 353px;
+}
+
+
+ h2 {
+
+   font-size: 25px;
+   margin: 10px;
+    
+}
+
+.dscatalog-product-details-price  {
+
+    display: flex;
+    margin: 0 10px 20px 10px;
+     align-items: baseline; 
+ 
+}   
+
+
+.dscatalog-product-details-title  h4{
+
+    color: #407BFF;
+    font-size: 30px;
+   align-self: flex-end;
+    
+}
+
+
+.dscatalog-product-details-title p {
+
+    font-size: 16px;
+   margin: 0; 
+    margin-right: 5px; /* Adiciona uma margem de 5px à direita */
+ 
+}
+
+.dscatalog-product-details-description{
+
+    margin: 0 10px;
+    padding: 10px;
+    border: 1px solid #E1E1E1;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 450px;
+    text-align: left;
+}
+
+
+.dscatalog-product-details-button {
+
+    display: flex ;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    margin: 20px 0;
+    padding-left:  50px;
+
+}
+
+
+.dscatalog-product-details-button button {
+
+    background-color: transparent;
+    border: none;
+    font-weight: 700;
+    font-size: 20px;
+     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+}
+
+.dscatalog-product-details-button span {
+    font-size: 20px;
+    margin-right: 10px; 
+    font-weight: 700; 
+    color: #407BFF;
+
+}
+
+
+}

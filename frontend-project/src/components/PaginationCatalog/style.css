@@ -1,9 +1,3 @@
-.dscatalog-pagination-container{
-
-    display: none;
-}
-
-@media (min-width: 576px) {
 
 .dscatalog-pagination-container{
 
@@ -24,6 +18,62 @@
     cursor: pointer; /* Muda o cursor para indicar que é clicável */
     transition: all 0.3s ease; /* Transição suave para efeitos */
 
+    /* Alinha o conteúdo (número ou seta) no centro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Efeito Hover para os botões inativos */
+.pagination-item:not(.active):hover {
+    background-color: #d0d0d0; /* Fica um pouco mais escuro */
+}
+
+/* Estilo para o botão ativo (página atual) */
+.pagination-item.active {
+    background-color: #007bff; /* Cor azul de destaque */
+    color: #fff; /* Cor do texto branca */
+}
+
+/* Estilo para o botão de seta */
+.pagination-arrow {
+    font-size: 18px; /* Seta um pouco maior que os números */
+}
+
+/* Estilo para a elipse "..." */
+.pagination-ellipsis {
+    width: 35px;
+    height: 35px;
+    color: #555;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media (min-width: 576px) {
+
+.dscatalog-pagination-container{
+
+
+    margin: 30px    ;
+    display: flex;
+    justify-content: center;
+}
+/* Estilo para os botões de número e setas */
+.pagination-item, .pagination-arrow {
+    width: 35px; /* Largura fixa */
+    height: 35px; /* Altura fixa para criar um quadrado */
+    border-radius: 50%; /* Transforma o quadrado em um círculo */
+    border: none; /* Remove a borda padrão do botão */
+    background-color: #e0e0e0; /* Cor cinza clara para os botões inativos */
+    color: #555; /* Cor do texto/ícone */
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    transition: all 0.3s ease; /* Transição suave para efeitos */
+    margin: 0 5px;
     /* Alinha o conteúdo (número ou seta) no centro */
     display: flex;
     justify-content: center;

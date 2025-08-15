@@ -1,8 +1,4 @@
-.dscatalog-container h2 { 
 
-    color: #000;
-    font-size: 20px;
-}
 
 .dscatalog-container  {
 
@@ -12,6 +8,7 @@
 
 
 }
+
 
 .dscatalog-card-container{ 
  
@@ -83,11 +80,6 @@
 
 @media(min-width: 576px) {
 
-    .dscatalog-container h2 { 
-
-    color: #000;
-    font-size: 20px;
-}
 
 .dscatalog-container  {
 

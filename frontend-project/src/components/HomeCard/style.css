@@ -1,4 +1,4 @@
-h2 {
+.dscatalog-card-container h2 {
     font-size: 18px;
  
     color: var(--color-font-primary);
@@ -80,9 +80,9 @@ p {
 
 }
 
-    h2 {
+.dscatalog-card-container h2 {
     
-    font-size: 36px;
+    font-size: 40px;
     color: var(--color-font-primary);
     font-weight: bold;
     margin-bottom: 20px;
