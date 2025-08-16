@@ -1,7 +1,7 @@
 import {  Route, Routes } from "react-router-dom"
 import Home from "./routes/Home"
 import Catalog from "./routes/Home/Catalog"
-import HomeBody from "./routes/Home/HomeBody"
+  import HomeBody from "./routes/Home/HomeBody"
 import ProductDetails from "./routes/Home/ProductDetails"
 import { history } from './utils/history.ts';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';

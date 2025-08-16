@@ -47,7 +47,11 @@ p {
 
 .dscatalog-btn-search{
     display: flex;
+    justify-content: center;
+        align-items: center;
+
     margin-top: 20px;
+    padding-right: 20px;
 }
 
 .dscatalog-img-card-container{

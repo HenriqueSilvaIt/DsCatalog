@@ -72,9 +72,10 @@
 
 .dscatalog-bar-category button {
 
+    text-align: center;
     width: 111px;
     height: 36px;
-    padding: 5px;
+    padding: 3px;
     font-size: 12px;
     color: #9E9E9E;
     font-weight: bold;  
@@ -84,6 +85,9 @@
     border: #E1E1E1 1px solid ;
     cursor: pointer;
 }
+
+
+
 
 .dscatalog-select{
     

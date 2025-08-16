@@ -2,7 +2,7 @@
 
 .dscatalog-button-search{
 
-    width: 180px;
+    width: 140px;
     height: 34px;
     border-radius: 10px 0 0 10px;
     background-color: var(--color-btn-bg);
@@ -11,28 +11,44 @@
     font-weight: 700;
     color: var(--color-font-secundary);
     cursor: pointer;
+
+    
+
+}
+
+.dscatalog-button-search button{
+        align-self: baseline;
+
 }
 
 
 .dscatalog-btn-img{
 
     cursor: pointer;
+
+
 }
+
+
+
+
 
 button img{
 
     width: 7px;
     height: 14px;      
+
 }
 
-.dsctalog-btn-submit{
 
-    height: 34px;
+.dsctalog-btn-submit{
+height: 34px;
     width: 40px;
     background-color: #3055A3;
     border: 1px solid #3055A3;
     border-radius: 0 10px 10px 0;
-}
+    position: absolute;
+        ;}
 
 @media(min-width: 576px) {
 

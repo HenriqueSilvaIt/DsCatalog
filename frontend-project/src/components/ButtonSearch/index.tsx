@@ -11,10 +11,8 @@ export default function ButtonSeach() {
         <>
 
             <Link to="/catalog">
-                <button className="dscatalog-button-search">INICIE AGORA SUA BUSCA</button>
-          
-                <button className="dsctalog-btn-submit"> <img className="dscatalog-btn-img" src={signIcon} /> </button>
-
+                    <button className="dscatalog-button-search">INICIE AGORA SUA BUSCA</button>
+                    <button className="dsctalog-btn-submit"> <img className="dscatalog-btn-img" src={signIcon} /> </button>
             </Link>
 
         </>
